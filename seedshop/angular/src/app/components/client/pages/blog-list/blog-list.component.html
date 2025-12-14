@@ -1,0 +1,107 @@
+<div class="blog-page">
+    <app-client-header></app-client-header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>Kiến Thức Trồng Trọt</h1>
+            <p>Chia sẻ kinh nghiệm và kiến thức về trồng trọt</p>
+        </div>
+    </div>
+
+    <div class="blog-content">
+        <div class="container">
+            <div class="blog-layout">
+                <!-- Sidebar -->
+                <div class="blog-sidebar">
+                    <!-- Search Box -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Tìm Kiếm</h3>
+                        <div class="search-box">
+                            <input 
+                                type="text" 
+                                [(ngModel)]="searchKeyword"
+                                (keyup.enter)="onSearch()"
+                                placeholder="Tìm kiếm bài viết...">
+                            <button (click)="onSearch()">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Danh Mục</h3>
+                        <ul class="category-list">
+                            <li [class.active]="selectedCategoryId === ''" (click)="onCategoryFilter('')">
+                                <i class="fas fa-folder"></i>
+                                Tất cả
+                            </li>
+                            <li *ngFor="let category of categories" 
+                                [class.active]="selectedCategoryId === category.id.toString()"
+                                (click)="onCategoryFilter(category.id.toString())">
+                                <i class="fas fa-folder-open"></i>
+                                {{ category.postCategoryName }}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Clear Filters -->
+                    <div class="sidebar-widget" *ngIf="searchKeyword || selectedCategoryId">
+                        <button class="btn-clear-filters" (click)="clearFilters()">
+                            <i class="fas fa-times-circle"></i>
+                            Xóa Bộ Lọc
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="blog-main">
+                    <div class="blog-grid" *ngIf="!loading && posts.length > 0">
+                        <div class="blog-card" *ngFor="let post of posts" (click)="goToPost(post.slug)">
+                            <div class="blog-image">
+                                <img [src]="getImageUrl(post.image)" [alt]="post.title">
+                            </div>
+                            <div class="blog-info">
+                                <span class="blog-date">
+                                    <i class="fas fa-calendar"></i> {{ post.createdAt | date:'dd/MM/yyyy' }}
+                                </span>
+                                <h3>{{ post.title }}</h3>
+                                <p class="blog-description">{{ stripHtml(post.description) }}</p>
+                                <a class="read-more">
+                                    Đọc thêm <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="empty-blog" *ngIf="!loading && posts.length === 0">
+                        <i class="fas fa-book-open"></i>
+                        <h2>Không tìm thấy bài viết</h2>
+                        <p>Hiện tại không có bài viết nào phù hợp với bộ lọc của bạn</p>
+                    </div>
+
+                    <div class="loading-state" *ngIf="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Đang tải bài viết...</p>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" *ngIf="totalPages > 1">
+                        <button [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage"
+                            (click)="goToPage(page)">
+                            {{ page }}
+                        </button>
+                        <button [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-client-footer></app-client-footer>
+</div>

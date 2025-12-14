@@ -1,0 +1,654 @@
+/* Plant Disease Detector - Matching website theme */
+:root {
+    --primary-green: #4a7c2c;
+    --primary-light: #6ba83e;
+    --primary-dark: #2d5016;
+    --darker-green: #1f3a11;
+    --bg-light: #f0f8ea;
+    --bg-lighter: #e8f5e0;
+    --text-dark: #333;
+    --text-gray: #666;
+    --border-light: #e0e0e0;
+    --white: #ffffff;
+    --success: #4a7c2c;
+    --warning: #f0ad4e;
+    --danger: #d9534f;
+}
+
+.plant-disease-detector {
+    min-height: 100vh;
+    background: var(--white);
+    padding-top: 72px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.plant-disease-detector h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--primary-dark);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.plant-disease-detector h1 i {
+    color: var(--primary-green);
+}
+
+.text-muted {
+    color: var(--text-gray) !important;
+}
+
+/* Upload Section */
+.custom-file-upload {
+  position: relative;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  border: 3px dashed var(--border-light);
+  border-radius: 12px;
+  background-color: var(--bg-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-label:hover {
+  border-color: var(--primary-green);
+  background-color: var(--bg-lighter);
+}
+
+.file-label i {
+  font-size: 3rem;
+  color: var(--primary-green);
+  margin-bottom: 1rem;
+}
+
+.file-label span {
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+/* Image Preview */
+.image-preview {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.image-preview img {
+  max-height: 400px;
+  border: 2px solid var(--border-light);
+  border-radius: 12px;
+}
+
+/* Action Buttons */
+.action-buttons {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.btn {
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-light) 100%);
+    color: var(--white) !important;
+    border: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-green) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(74, 124, 44, 0.3);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-outline-secondary {
+    background: transparent;
+    border: 2px solid var(--text-gray);
+    color: var(--text-gray);
+}
+
+.btn-outline-secondary:hover:not(:disabled) {
+    background: var(--text-gray);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+.btn-outline-danger {
+    background: transparent;
+    border: 2px solid var(--danger);
+    color: var(--danger);
+}
+
+.btn-outline-danger:hover {
+    background: var(--danger);
+    color: var(--white);
+}
+
+/* Result Section */
+.result-section {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-card {
+  padding: 2rem;
+  border-radius: 12px;
+  border: 3px solid;
+  background-color: var(--white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.result-header h4 {
+  color: var(--primary-dark);
+  font-weight: 700;
+  margin: 0;
+}
+
+.result-header .badge {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.confidence-bar .progress {
+  border-radius: 10px;
+  overflow: hidden;
+  height: 25px;
+  background-color: var(--bg-light);
+}
+
+.confidence-bar .progress-bar {
+  font-weight: bold;
+  line-height: 25px;
+  transition: width 0.6s ease;
+}
+
+.result-info {
+    margin-top: 1rem;
+}
+
+.result-info small {
+    color: var(--text-gray);
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: var(--white);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.card-title i {
+  margin-right: 0.5rem;
+  color: var(--primary-green);
+}
+
+/* Info Section */
+.info-list {
+  padding-left: 1.2rem;
+  color: var(--text-dark);
+}
+
+.info-list li {
+  margin-bottom: 0.5rem;
+}
+
+.plant-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.plant-tags .badge {
+    background-color: var(--bg-light) !important;
+    color: var(--primary-dark);
+    padding: 0.5rem 0.75rem;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+/* History Section */
+.history-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.history-item {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  transition: background-color 0.2s;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.history-item:hover {
+  background-color: var(--bg-light);
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+/* Alert */
+.alert {
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    border: none;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-danger i {
+    margin-right: 0.5rem;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    font-size: 0.9em;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 6px;
+}
+
+.bg-success {
+  background-color: var(--success) !important;
+  color: var(--white) !important;
+}
+
+.bg-warning {
+  background-color: var(--warning) !important;
+  color: var(--white) !important;
+}
+
+.bg-danger {
+  background-color: var(--danger) !important;
+  color: var(--white) !important;
+}
+
+.bg-secondary {
+    background-color: #6c757d !important;
+    color: var(--white) !important;
+}
+
+/* Color variants */
+.border-success {
+  border-color: var(--success) !important;
+}
+
+.border-warning {
+  border-color: var(--warning) !important;
+}
+
+.border-danger {
+  border-color: var(--danger) !important;
+}
+
+/* Spinner */
+.spinner-border {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    vertical-align: text-bottom;
+    border: 0.2em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
+}
+
+.spinner-border-sm {
+    width: 0.875rem;
+    height: 0.875rem;
+    border-width: 0.15em;
+}
+
+@keyframes spinner-border {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .result-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .result-header .badge {
+    margin-top: 0.5rem;
+  }
+
+  .action-buttons button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .plant-disease-detector h1 {
+    font-size: 28px;
+  }
+}
+
+/* Upload Section */
+.custom-file-upload {
+  position: relative;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  border: 3px dashed #ccc;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-label:hover {
+  border-color: #007bff;
+  background-color: #e7f3ff;
+}
+
+.file-label i {
+  font-size: 3rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.file-label span {
+  color: #6c757d;
+  font-weight: 500;
+}
+
+/* Image Preview */
+.image-preview {
+  text-align: center;
+}
+
+.image-preview img {
+  max-height: 400px;
+  border: 2px solid #dee2e6;
+}
+
+/* Action Buttons */
+.action-buttons {
+  text-align: center;
+}
+
+/* Result Section */
+.result-section {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-card {
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 3px solid;
+  background-color: #fff;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-header h4 {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.result-header .badge {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.confidence-bar .progress {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.confidence-bar .progress-bar {
+  font-weight: bold;
+  line-height: 25px;
+  transition: width 0.6s ease;
+}
+
+/* Info Section */
+.info-list {
+  padding-left: 1.2rem;
+  color: #495057;
+}
+
+.info-list li {
+  margin-bottom: 0.5rem;
+}
+
+.plant-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+/* History Section */
+.history-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.history-item {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.2s;
+}
+
+.history-item:hover {
+  background-color: #f8f9fa;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 10px;
+}
+
+.card-title {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.card-title i {
+  margin-right: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .result-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .result-header .badge {
+    margin-top: 0.5rem;
+  }
+
+  .action-buttons button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Color variants */
+.border-success {
+  border-color: #28a745 !important;
+}
+
+.border-warning {
+  border-color: #ffc107 !important;
+}
+
+.border-danger {
+  border-color: #dc3545 !important;
+}
+
+.bg-success {
+  background-color: #28a745 !important;
+}
+
+.bg-warning {
+  background-color: #ffc107 !important;
+}
+
+.bg-danger {
+  background-color: #dc3545 !important;
+}
+/* Disease Details Section */
+.disease-details {
+  background: linear-gradient(135deg, #f8fdf6 0%, #f0f8ea 100%);
+  border-radius: 12px;
+  padding: 20px;
+  border-left: 5px solid var(--primary-green);
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(74, 124, 44, 0.1);
+}
+
+.disease-details h6 {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--primary-green);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.disease-details i {
+  font-size: 16px;
+  color: var(--primary-green);
+}
+
+.detail-item {
+  padding: 15px;
+  background: var(--white);
+  border-radius: 8px;
+  border: 1px solid #e8f5e0;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.detail-item:hover {
+  box-shadow: 0 2px 6px rgba(74, 124, 44, 0.15);
+  border-color: var(--primary-light);
+}
+
+.detail-item h6 {
+  margin: 0 0 10px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e8f5e0;
+}
+
+.detail-item p {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.ms-3 {
+  margin-left: 15px !important;
+  color: var(--text-gray);
+  font-size: 14px;
+  line-height: 1.7;
+}

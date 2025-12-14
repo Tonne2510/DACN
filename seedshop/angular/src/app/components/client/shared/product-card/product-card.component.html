@@ -1,0 +1,25 @@
+<div class="product-card">
+    <div class="product-image" [routerLink]="['/products', product.slug]">
+        <img [src]="getImageUrl(product.image)" [alt]="product.productName">
+        <div class="product-badge" *ngIf="product.salePrice && product.salePrice < product.price">
+            -{{ getDiscountPercent() }}%
+        </div>
+    </div>
+    <div class="product-info">
+        <h3 class="product-name" [routerLink]="['/products', product.slug]">{{ product.productName }}</h3>
+        <div class="product-price">
+            <span class="sale-price" *ngIf="product.salePrice && product.salePrice < product.price">
+                {{ formatPrice(product.salePrice) }}
+            </span>
+            <span class="original-price" [class.strikethrough]="product.salePrice && product.salePrice < product.price">
+                {{ formatPrice(product.price) }}
+            </span>
+        </div>
+        <button class="add-to-cart-btn" (click)="addToCart($event)" [disabled]="isAddingToCart">
+            <i class="fas" [class.fa-shopping-cart]="!isAddingToCart" [class.fa-spinner]="isAddingToCart"
+                [class.fa-spin]="isAddingToCart"></i>
+            <span *ngIf="!isAddingToCart">Thêm vào giỏ hàng</span>
+            <span *ngIf="isAddingToCart">Đang thêm...</span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="orders-page">
+    <app-client-header></app-client-header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>Đơn Hàng Của Tôi</h1>
+        </div>
+    </div>
+
+    <div class="orders-content">
+        <div class="container">
+            <div class="orders-list" *ngIf="!loading && orders.length > 0">
+                <div class="order-card" *ngFor="let order of orders">
+                    <div class="order-header">
+                        <div class="order-id">
+                            <strong>Đơn hàng #{{ order.orderId || order.order?.id || order.id || 'N/A' }}</strong>
+                            <span class="order-date">{{ (order.orderDate || order.order?.orderDate) | date:'dd/MM/yyyy HH:mm' }}</span>
+                        </div>
+                        <span class="order-status" [class]="'status-' + (order.status || order.order?.status || 'ordered').toLowerCase()">
+                            {{ getStatusText(order.status || order.order?.status) }}
+                        </span>
+                    </div>
+
+                    <div class="order-items">
+                        <div class="order-item" *ngFor="let item of order.orderItems">
+                            <div class="item-details">
+                                <p class="item-name">{{ item.productName }}</p>
+                                <p class="item-price">{{ formatPrice(item.price) }}</p>
+                            </div>
+                            <div class="item-quantity">
+                                <span>x{{ item.quantity }}</span>
+                            </div>
+                            <div class="item-total">
+                                <strong>{{ formatPrice(item.subTotal) }}</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-footer">
+                        <div class="order-address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>{{ order.shippingAddress || order.order?.shippingAddress }}</span>
+                        </div>
+                        <div class="order-total">
+                            <span>Tổng tiền:</span>
+                            <strong>{{ formatPrice(getOrderTotal(order)) }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="empty-orders" *ngIf="!loading && orders.length === 0">
+                <i class="fas fa-box-open"></i>
+                <h2>Chưa có đơn hàng nào</h2>
+                <p>Bạn chưa có đơn hàng nào. Hãy bắt đầu mua sắm!</p>
+                <a routerLink="/products" class="btn-shop">Mua Sắm Ngay</a>
+            </div>
+
+            <div class="loading-state" *ngIf="loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Đang tải đơn hàng...</p>
+            </div>
+        </div>
+    </div>
+
+    <app-client-footer></app-client-footer>
+</div>

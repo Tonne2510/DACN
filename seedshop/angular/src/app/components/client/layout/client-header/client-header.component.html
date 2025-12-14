@@ -1,0 +1,81 @@
+<header class="client-header">
+    <div class="container">
+        <div class="header-content">
+            <!-- Logo -->
+            <a routerLink="/" class="logo">
+                <div class="logo-circle">S</div>
+                <span class="logo-text">Seed Shop</span>
+            </a>
+
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <div class="nav-dropdown">
+                    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        Trang chủ <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a routerLink="/about">Giới thiệu</a>
+                        <a routerLink="/contact">Liên hệ</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a routerLink="/products" routerLinkActive="active">
+                        Sản phẩm <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a *ngFor="let category of categories" [routerLink]="['/products']" [queryParams]="{category: category.id}">
+                            {{ category.categoryName }}
+                        </a>
+                    </div>
+                </div>
+                <a routerLink="/blog" routerLinkActive="active">Kiến thức</a>
+                <a routerLink="/plant-disease" routerLinkActive="active">
+                    <i class="fas fa-leaf"></i> Chẩn đoán bệnh cây
+                </a>
+            </nav>
+
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm hạt giống..." [(ngModel)]="searchKeyword" (keyup.enter)="onSearch()">
+                <button (click)="onSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <!-- User Actions -->
+            <div class="header-actions">
+                <!-- User Menu -->
+                <div class="user-menu" *ngIf="!isLoggedIn">
+                    <a routerLink="/login" class="action-btn login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Đăng nhập</span>
+                    </a>
+                </div>
+                <div class="user-menu" *ngIf="isLoggedIn">
+                    <button class="user-btn" (click)="toggleUserMenu()">
+                        <i class="fas fa-user-circle"></i>
+                        <span>{{ currentUser?.username }}</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </button>
+                    <div class="user-dropdown" *ngIf="showUserMenu">
+                        <a *ngIf="isAdmin" routerLink="/admin"><i class="fas fa-cog"></i> Quản trị</a>
+                        <a routerLink="/profile"><i class="fas fa-user"></i> Tài khoản</a>
+                        <a routerLink="/orders"><i class="fas fa-box"></i> Đơn hàng</a>
+                        <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
+                </div>
+
+                <!-- Cart -->
+                <a routerLink="/cart" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>

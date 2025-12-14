@@ -1,0 +1,155 @@
+<app-client-header></app-client-header>
+
+<div class="loading-page" *ngIf="loading">
+    <i class="fas fa-spinner fa-spin"></i>
+    <p>Đang tải sản phẩm...</p>
+</div>
+
+<div class="product-detail-page" *ngIf="!loading && product">
+    <div class="product-detail-content">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a routerLink="/"><i class="fas fa-home"></i> Trang chủ</a>
+                <span>/</span>
+                <a routerLink="/products">Sản phẩm</a>
+                <span>/</span>
+                <span>{{ product.productName }}</span>
+            </div>
+
+            <!-- Product Main Section -->
+            <div class="product-main">
+                <!-- Gallery -->
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img [src]="selectedImage" [alt]="product.productName">
+                        <div class="discount-badge" *ngIf="getDiscountPercent() > 0">
+                            -{{ getDiscountPercent() }}%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info-card">
+                    <div class="product-header">
+                        <h1 class="product-title">{{ product.productName }}</h1>
+                        <div class="product-meta">
+                            <span class="stock-badge">
+                                <i class="fas fa-check-circle"></i> Còn hàng
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="price-section">
+                        <div class="price-row">
+                            <span class="current-price">{{ formatPrice(getCurrentPrice()) }}</span>
+                            <span class="original-price" *ngIf="product.salePrice && product.salePrice < product.price">
+                                {{ formatPrice(product.price) }}
+                            </span>
+                        </div>
+                        <div class="savings" *ngIf="product.salePrice && product.salePrice < product.price">
+                            Tiết kiệm: {{ formatPrice(product.price - product.salePrice) }}
+                        </div>
+                    </div>
+
+                    <div class="product-actions">
+                        <div class="quantity-selector">
+                            <label>Số lượng:</label>
+                            <div class="quantity-controls">
+                                <button (click)="decreaseQuantity()" [disabled]="quantity <= 1">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" 
+                                       [(ngModel)]="quantity" 
+                                       (change)="updateQuantity($event)"
+                                       min="1">
+                                <button (click)="increaseQuantity()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn-add-cart" (click)="addToCart()" [disabled]="addingToCart">
+                                <i class="fas" [class.fa-shopping-cart]="!addingToCart" [class.fa-spinner]="addingToCart"
+                                    [class.fa-spin]="addingToCart"></i>
+                                <span *ngIf="!addingToCart">Thêm vào giỏ hàng</span>
+                                <span *ngIf="addingToCart">Đang thêm...</span>
+                            </button>
+                            <button class="btn-buy-now" (click)="buyNow()" [disabled]="addingToCart">
+                                <i class="fas fa-bolt"></i>
+                                Mua ngay
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-features">
+                        <div class="feature-item">
+                            <i class="fas fa-shipping-fast"></i>
+                            <div>
+                                <strong>Giao hàng nhanh</strong>
+                                <p>Miễn phí vận chuyển đơn từ 500k</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <strong>Đảm bảo chất lượng</strong>
+                                <p>Hạt giống chính hãng 100%</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-headset"></i>
+                            <div>
+                                <strong>Hỗ trợ 24/7</strong>
+                                <p>Tư vấn miễn phí mọi lúc</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Description -->
+            <div class="product-description-section" *ngIf="product.description">
+                <div class="section-header">
+                    <h2><i class="fas fa-info-circle"></i> Mô tả chi tiết sản phẩm</h2>
+                </div>
+                <div class="description-content" [innerHTML]="product.description"></div>
+            </div>
+
+            <!-- Related Products -->
+            <div class="related-products" *ngIf="relatedProducts.length > 0">
+                <div class="section-header">
+                    <h2><i class="fas fa-th-large"></i> Sản phẩm liên quan</h2>
+                </div>
+                <div class="related-grid">
+                    <div class="related-card" 
+                         *ngFor="let relatedProduct of relatedProducts"
+                         (click)="goToProduct(relatedProduct.slug)">
+                        <div class="related-image">
+                            <img [src]="getImageUrl(relatedProduct.image)" 
+                                 [alt]="relatedProduct.productName">
+                            <div class="related-badge" *ngIf="relatedProduct.salePrice && relatedProduct.salePrice < relatedProduct.price">
+                                -{{ Math.round(((relatedProduct.price - relatedProduct.salePrice) / relatedProduct.price) * 100) }}%
+                            </div>
+                        </div>
+                        <div class="related-info">
+                            <h3>{{ relatedProduct.productName }}</h3>
+                            <div class="related-price">
+                                <span class="sale-price" *ngIf="relatedProduct.salePrice && relatedProduct.salePrice < relatedProduct.price">
+                                    {{ formatPrice(relatedProduct.salePrice) }}
+                                </span>
+                                <span class="orig-price" 
+                                      [class.strikethrough]="relatedProduct.salePrice && relatedProduct.salePrice < relatedProduct.price">
+                                    {{ formatPrice(relatedProduct.price) }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-client-footer></app-client-footer>

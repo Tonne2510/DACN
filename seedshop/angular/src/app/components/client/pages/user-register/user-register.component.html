@@ -1,0 +1,54 @@
+<div class="register-page">
+    <app-client-header></app-client-header>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Đăng Ký</h2>
+            <p class="auth-subtitle">Tạo tài khoản mới để bắt đầu mua sắm</p>
+
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label>Tên đăng nhập</label>
+                    <input type="text" formControlName="username" placeholder="Nhập tên đăng nhập">
+                    <div class="error-message"
+                        *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+                        Tên đăng nhập không được để trống
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" formControlName="email" placeholder="Nhập email của bạn">
+                    <div class="error-message"
+                        *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                        Email không hợp lệ
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Mật khẩu</label>
+                    <input type="password" formControlName="password" placeholder="Nhập mật khẩu">
+                    <div class="error-message"
+                        *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                        Mật khẩu phải có ít nhất 6 ký tự
+                    </div>
+                </div>
+
+                <div class="error-message" *ngIf="errorMessage">
+                    {{ errorMessage }}
+                </div>
+
+                <button type="submit" class="btn-submit" [disabled]="registerForm.invalid || loading">
+                    <span *ngIf="!loading">Đăng Ký</span>
+                    <i *ngIf="loading" class="fas fa-spinner fa-spin"></i>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Đã có tài khoản? <a routerLink="/login">Đăng nhập ngay</a></p>
+            </div>
+        </div>
+    </div>
+
+    <app-client-footer></app-client-footer>
+</div>

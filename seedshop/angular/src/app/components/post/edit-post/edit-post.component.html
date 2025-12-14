@@ -1,0 +1,48 @@
+<div class="container mt-5">
+    <h2 class="text-success">Edit Post</h2>
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="Title">Title</label>
+            <input formControlName="Title" type="text" class="form-control" placeholder="Enter title" id="title" />
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" formControlName="Description" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="description">Content</label>
+            <textarea id="content" formControlName="Content" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="postcategory">Post Category</label>
+            <select formControlName="PostCategoryId" class="form-control">
+                <option *ngFor="let pc of postCategories" [value]="pc.id">
+                    {{ pc.postCategoryName}}
+                </option>
+            </select>
+        </div>
+        <div class="row justify-content-between">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="file" (change)="onImageSelect($event)" class="form-control" id="image" />
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div *ngIf="imagePreview">
+                    <img [src]="imagePreview" alt="Selected Image" class="img-thumbnail"
+                        style="width: 300px !important;" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="active">Status</label>
+            <select formControlName="Status" class="form-control">
+                <option value="PUBLISHED">PUBLISHED</option>
+                <option value="UNPUBLISHED">UNPUBLISHED</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+

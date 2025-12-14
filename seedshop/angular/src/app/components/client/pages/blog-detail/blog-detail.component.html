@@ -1,0 +1,67 @@
+<div class="blog-detail-page">
+    <app-client-header></app-client-header>
+
+    <div class="blog-detail-content" *ngIf="!loading && post">
+        <div class="container">
+            <div class="breadcrumb">
+                <a routerLink="/">Trang chủ</a>
+                <span>/</span>
+                <a routerLink="/blog">Bài Viết</a>
+                <span>/</span>
+                <span>{{ post.title }}</span>
+            </div>
+
+            <article class="blog-article">
+                <header class="article-header">
+                    <h1>{{ post.title }}</h1>
+                    <div class="article-meta">
+                        <span class="meta-date">
+                            <i class="fas fa-calendar"></i> {{ post.createdAt | date:'dd/MM/yyyy' }}
+                        </span>
+                        <span class="meta-category" *ngIf="post.postCategoryName">
+                            <i class="fas fa-folder"></i> {{ post.postCategoryName }}
+                        </span>
+                        <span class="meta-author" *ngIf="post.createdBy">
+                            <i class="fas fa-user"></i> {{ post.createdBy }}
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-image" *ngIf="post.image">
+                    <img [src]="getImageUrl(post.image)" [alt]="post.title">
+                </div>
+
+                <div class="article-description" *ngIf="post.description">
+                    <p>{{ stripHtml(post.description) }}</p>
+                </div>
+
+                <div class="article-content" [innerHTML]="post.content"></div>
+            </article>
+
+            <!-- Related Posts -->
+            <div class="related-posts" *ngIf="relatedPosts.length > 0">
+                <h2>Bài Viết Liên Quan</h2>
+                <div class="related-grid">
+                    <div class="related-card" *ngFor="let relatedPost of relatedPosts" (click)="goToRelatedPost(relatedPost.slug)">
+                        <div class="related-image">
+                            <img [src]="getImageUrl(relatedPost.image)" [alt]="relatedPost.title">
+                        </div>
+                        <div class="related-info">
+                            <h3>{{ relatedPost.title }}</h3>
+                            <span class="related-date">
+                                <i class="fas fa-calendar"></i> {{ relatedPost.createdAt | date:'dd/MM/yyyy' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-page" *ngIf="loading">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Đang tải bài viết...</p>
+    </div>
+
+    <app-client-footer></app-client-footer>
+</div>

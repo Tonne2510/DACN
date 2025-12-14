@@ -1,0 +1,17 @@
+const String onboardingScreenRoute = "onboarding";
+const String logInScreenRoute = "login";
+const String signUpScreenRoute = "signup";
+const String homScreenRoute = "home";
+const String cartScreenRoute = "cart";
+const String favouriteScreenRoute = "favourite";
+const String accountScreenRoute = "account";
+const String exploreScreenRoute = "shop";
+const String categoryScreenRoute = "category";
+const String categoryProductRoute = "categoryProduct";
+const String filterProductRoute = "filterProduct";
+const String searchProductRoute = "searchProduct";
+const String productDetailRoute = "productDetail";
+const String cartRoute = "cart";
+const String favouriteRoute = "favourite";
+const String accountRoute = "account";
+const String splashRoute = "splash";

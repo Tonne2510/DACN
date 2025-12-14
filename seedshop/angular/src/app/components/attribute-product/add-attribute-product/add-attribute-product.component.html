@@ -1,0 +1,36 @@
+<h2 class="text-success">Add Attribute</h2>
+<form [formGroup]="addAttributeForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light">
+  <div class="mb-3">
+    <label for="attributeCode" class="form-label">Attribute Code</label>
+    <input
+      type="text"
+      formControlName="attributeCode"
+      class="form-control"
+      id="attributeCode"
+      placeholder="Enter attribute code"
+    />
+    <div *ngIf="addAttributeForm.get('attributeCode')?.invalid && addAttributeForm.get('attributeCode')?.touched" class="text-danger mt-1">
+      Attribute Code is required.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="attributeName" class="form-label">Attribute Name</label>
+    <input
+      type="text"
+      formControlName="attributeName"
+      class="form-control"
+      id="attributeName"
+      placeholder="Enter attribute name"
+    />
+    <div *ngIf="addAttributeForm.get('attributeName')?.invalid && addAttributeForm.get('attributeName')?.touched" class="text-danger mt-1">
+      Attribute Name is required.
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <button type="submit" class="btn btn-primary">
+      Submit
+    </button>
+  </div>
+</form>

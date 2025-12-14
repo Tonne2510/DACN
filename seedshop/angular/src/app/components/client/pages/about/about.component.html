@@ -1,0 +1,103 @@
+<div class="about-page">
+    <app-client-header></app-client-header>
+
+    <!-- Hero Section -->
+    <div class="page-hero">
+        <div class="container">
+            <h1>Về Chúng Tôi</h1>
+            <p>Hành trình mang đến hạt giống chất lượng cao cho nông nghiệp Việt Nam</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="about-content">
+        <div class="container">
+            <!-- Story Section -->
+            <div class="story-section">
+                <div class="story-grid">
+                    <div class="story-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                    </div>
+                    <div class="story-text">
+                        <h2>Câu Chuyện Của Chúng Tôi</h2>
+                        <p>
+                            Green Seeds được thành lập với sứ mệnh mang đến những hạt giống chất lượng cao nhất 
+                            cho bà con nông dân Việt Nam. Với hơn 5 năm kinh nghiệm trong ngành, chúng tôi tự hào 
+                            là đối tác tin cậy của hàng ngàn khách hàng trên toàn quốc.
+                        </p>
+                        <p>
+                            Chúng tôi không ngừng nghiên cứu và phát triển, nhập khẩu các giống hạt ưu việt từ 
+                            các nước có nền nông nghiệp phát triển như Hà Lan, Nhật Bản, Hàn Quốc... đồng thời 
+                            kết hợp với các giống bản địa để tạo ra những sản phẩm phù hợp nhất với khí hậu 
+                            và đất đai Việt Nam.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission & Vision -->
+            <div class="mission-section">
+                <div class="mission-grid">
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Sứ Mệnh</h3>
+                        <p>
+                            Cung cấp hạt giống chất lượng cao, góp phần nâng cao năng suất và chất lượng 
+                            nông sản Việt Nam, đồng thời hỗ trợ nông dân trong việc phát triển nông nghiệp bền vững.
+                        </p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Tầm Nhìn</h3>
+                        <p>
+                            Trở thành nhà cung cấp hạt giống hàng đầu Việt Nam, được tin tưởng bởi chất lượng 
+                            sản phẩm và dịch vụ chuyên nghiệp, góp phần hiện đại hóa nông nghiệp Việt Nam.
+                        </p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Giá Trị Cốt Lõi</h3>
+                        <p>
+                            Uy tín - Chất lượng - Chuyên nghiệp. Chúng tôi cam kết luôn đặt lợi ích của 
+                            khách hàng lên hàng đầu và không ngừng cải tiến để mang đến giá trị tốt nhất.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features-section">
+                <h2 class="section-title">Tại Sao Chọn Chúng Tôi</h2>
+                <div class="features-grid">
+                    <div class="feature-card" *ngFor="let feature of features">
+                        <div class="feature-icon">
+                            <i class="fas" [ngClass]="feature.icon"></i>
+                        </div>
+                        <h3>{{ feature.title }}</h3>
+                        <p>{{ feature.description }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card" *ngFor="let stat of stats">
+                        <div class="stat-number">{{ stat.number }}</div>
+                        <div class="stat-label">{{ stat.label }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-client-footer></app-client-footer>
+</div>

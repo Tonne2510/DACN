@@ -1,0 +1,126 @@
+<div class="client-home">
+    <app-client-header></app-client-header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Hạt Giống Chất Lượng Cao</h1>
+                <p class="hero-subtitle">Mang thiên nhiên vào khu vườn nhà bạn</p>
+                <p class="hero-desc">
+                    Chuyên cung cấp hạt giống rau, hoa, cây ăn trái với chất lượng tốt nhất.
+                    Cam kết tỷ lệ nảy mầm cao, giá cả hợp lý.
+                </p>
+                <div class="hero-actions">
+                    <a routerLink="/products" class="btn btn-primary">
+                        <i class="fas fa-shopping-bag"></i> Mua sắm ngay
+                    </a>
+                    <a routerLink="/blog" class="btn btn-outline">
+                        <i class="fas fa-book-open"></i> Kiến thức trồng trọt
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-placeholder">
+                    <i class="fas fa-seedling"></i>
+                    <p>Hạt Giống Xanh</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">Danh Mục Sản Phẩm</h2>
+            <div class="categories-grid">
+                <div class="category-card" *ngFor="let category of categories" [routerLink]="['/products']"
+                    [queryParams]="{category: category.id}">
+                    <div class="category-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>{{ category.categoryName }}</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Sản Phẩm Nổi Bật</h2>
+                <a routerLink="/products" class="view-all">
+                    Xem tất cả <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="products-grid">
+                <app-product-card *ngFor="let product of featuredProducts" [product]="product">
+                </app-product-card>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Chất Lượng Đảm Bảo</h3>
+                    <p>100% hạt giống nhập khẩu, tỷ lệ nảy mầm cao</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Giao Hàng Nhanh</h3>
+                    <p>Giao hàng toàn quốc trong 2-3 ngày</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Hỗ Trợ 24/7</h3>
+                    <p>Tư vấn kỹ thuật trồng trọt miễn phí</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-undo-alt"></i>
+                    </div>
+                    <h3>Đổi Trả Dễ Dàng</h3>
+                    <p>Chính sách đổi trả trong 7 ngày</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Blog Posts -->
+    <section class="blog-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kiến Thức Trồng Trọt</h2>
+                <a routerLink="/blog" class="view-all">
+                    Xem tất cả <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card" *ngFor="let post of latestPosts" [routerLink]="['/blog', post.slug]">
+                    <div class="blog-image">
+                        <img [src]="getImageUrl(post.image)" [alt]="post.title">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date">{{ post.createdAt | date:'dd/MM/yyyy' }}</span>
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ stripHtml(post.description) }}</p>
+                        <a class="read-more">Đọc thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <app-client-footer></app-client-footer>
+</div>

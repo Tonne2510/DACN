@@ -1,0 +1,111 @@
+<div class="checkout-page">
+    <app-client-header></app-client-header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>Thanh Toán</h1>
+        </div>
+    </div>
+
+    <div class="checkout-content">
+        <div class="container">
+            <div class="checkout-layout">
+                <div class="checkout-form">
+                    <form [formGroup]="checkoutForm" (ngSubmit)="placeOrder()">
+                        <div class="form-section">
+                            <div class="section-header">
+                                <h3>Thông Tin Giao Hàng</h3>
+                                <a routerLink="/profile" class="btn-edit-profile">
+                                    <i class="fas fa-user-edit"></i> Sửa thông tin
+                                </a>
+                            </div>
+
+                            <div class="info-display">
+                                <div class="info-item">
+                                    <label><i class="fas fa-user"></i> Họ và tên:</label>
+                                    <span>{{ userInfo?.userName || 'Chưa cập nhật' }}</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <label><i class="fas fa-phone"></i> Số điện thoại:</label>
+                                    <span>{{ userInfo?.phoneNumber || 'Chưa cập nhật' }}</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <label><i class="fas fa-envelope"></i> Email:</label>
+                                    <span>{{ userInfo?.email || 'Chưa cập nhật' }}</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <label><i class="fas fa-map-marker-alt"></i> Địa chỉ:</label>
+                                    <span>{{ userInfo?.address || 'Chưa cập nhật' }}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Ghi chú</label>
+                                <textarea formControlName="note" rows="2"
+                                    placeholder="Ghi chú cho đơn hàng (không bắt buộc)"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Phương Thức Thanh Toán</h3>
+                            <div class="payment-methods">
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="cod" checked>
+                                    <div class="payment-info">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                        <div>
+                                            <strong>Thanh toán khi nhận hàng (COD)</strong>
+                                            <p>Thanh toán bằng tiền mặt khi nhận hàng</p>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-place-order" [disabled]="placing || cartItems.length === 0">
+                            <span *ngIf="!placing">Đặt Hàng</span>
+                            <i *ngIf="placing" class="fas fa-spinner fa-spin"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="order-summary">
+                    <h3>Đơn Hàng Của Bạn</h3>
+
+                    <div class="summary-items">
+                        <div class="summary-item" *ngFor="let item of cartItems">
+                            <div class="item-info">
+                                <img [src]="getImageUrl(item.product?.image)" [alt]="item.product?.productName">
+                                <div>
+                                    <p class="item-name">{{ item.product?.productName }}</p>
+                                    <p class="item-qty">x{{ item.quantity }}</p>
+                                </div>
+                            </div>
+                            <span class="item-price">{{ formatPrice(item.price * item.quantity) }}</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-totals">
+                        <div class="summary-row">
+                            <span>Tạm tính:</span>
+                            <span>{{ formatPrice(getSubtotal()) }}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Phí vận chuyển:</span>
+                            <span>{{ formatPrice(shippingFee) }}</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Tổng cộng:</span>
+                            <span>{{ formatPrice(getTotal()) }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-client-footer></app-client-footer>
+</div>

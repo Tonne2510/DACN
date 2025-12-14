@@ -1,0 +1,211 @@
+
+<div class="wrapper">
+    <!-- Sidebar -->
+    <div class="sidebar" data-background-color="dark">
+      <div class="sidebar-logo">
+        <!-- Logo Header -->
+        <div class="logo-header" data-background-color="dark">
+          <a [routerLink]="['/admin']" class="logo">
+            <img src="assets/package-user/images/seedling-solid-full.svg" alt="navbar brand" class="navbar-brand" height="20" />
+          </a>
+          <div class="nav-toggle">
+            <button class="btn btn-toggle toggle-sidebar">
+              <i class="gg-menu-right"></i>
+            </button>
+            <button class="btn btn-toggle sidenav-toggler">
+              <i class="gg-menu-left"></i>
+            </button>
+          </div>
+          <button class="topbar-toggler more">
+            <i class="gg-more-vertical-alt"></i>
+          </button>
+        </div>
+        <!-- Home Button -->
+        <div style="padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center;">
+          <a [routerLink]="['/']" class="btn btn-light" style="background: #fff; color: #5a9a3a; font-weight: 600; border-radius: 5px; padding: 10px 20px; display: inline-block; width: 90%;">
+            <i class="fas fa-home"></i> Về Trang Chủ
+          </a>
+        </div>
+        <!-- End Logo Header -->
+      </div>
+      <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-content">
+          <ul class="nav nav-secondary">
+            <li class="nav-item active">
+              <a data-bs-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+                <i class="fas fa-home"></i>
+                <p>Dashboard</p>
+                <span class="caret"></span>
+              </a>
+              <div class="collapse" id="dashboard">
+                <ul class="nav nav-collapse">
+                  <li>
+                    <a [routerLink]="['/admin']">
+                      <span class="sub-item">Dashboard</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-section">
+              <span class="sidebar-mini-icon">
+                <i class="fa fa-ellipsis-h"></i>
+              </span>
+              <h4 class="text-section">Main</h4>
+            </li>
+            <li class="nav-item">
+              <a data-bs-toggle="collapse" href="#submenu1">
+                <i class="fas fa-bars"></i>
+                <p>Category</p>
+                <span class="caret"></span>
+              </a>
+              <div class="collapse" id="submenu1">
+                <ul class="nav nav-collapse">
+                  <li>
+                    <a data-bs-toggle="collapse" href="#subnav1">
+                      <span class="sub-item">Categories</span>
+                      <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="subnav1">
+                      <ul class="nav nav-collapse subnav">
+                        <li>
+                          <a [routerLink]="['/admin/category']">
+                            <span class="sub-item">Category List</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                 
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a data-bs-toggle="collapse" href="#submenu2">
+                <i class="fas fa-check-circle"></i>
+                <p>Product</p>
+                <span class="caret"></span>
+              </a>
+              <div class="collapse" id="submenu2">
+                <ul class="nav nav-collapse">
+                  
+                  <li>
+                    <a data-bs-toggle="collapse" href="#subnav2">
+                      <span class="sub-item">Products</span>
+                      <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="subnav2">
+                      <ul class="nav nav-collapse subnav">
+                        <li>
+                          <a [routerLink]="['/admin/product']">
+                            <span class="sub-item">Product List</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a [routerLink]="['/admin/product/add']">
+                            <span class="sub-item">Add Product</span>
+                          </a>
+                        </li>
+                       
+                      </ul>
+                    </div>
+                  </li>
+                 
+                 
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a data-bs-toggle="collapse" href="#submenu11">
+                <i class="fas fa-check-circle"></i>
+
+                
+                <p>Order</p>
+                <span class="caret"></span>
+              </a>
+              <div class="collapse" id="submenu11">
+                <ul class="nav nav-collapse">
+                  
+                  <li>
+                    <a data-bs-toggle="collapse" [routerLink]="['/admin/orders']">
+                      <span class="sub-item">Orders</span>
+                      <span class="caret"></span>
+                    </a>
+                  </li>
+                 
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a data-bs-toggle="collapse" href="#submenu3">
+                <i class="fas fa-ellipsis-h"></i>
+                <p>Post</p>
+                <span class="caret"></span>
+              </a>
+              <div class="collapse" id="submenu3">
+                <ul class="nav nav-collapse">
+                  <li>
+                    <a data-bs-toggle="collapse" [routerLink]="['/admin/category-post']">
+                      <span class="sub-item">Category post</span>
+                      <span class="caret"></span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a data-bs-toggle="collapse" href="#subnav5">
+                      <span class="sub-item">Post</span>
+                      <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="subnav5">
+                      <ul class="nav nav-collapse subnav">
+                        <li>
+                          <a [routerLink]="['/admin/post']">
+                            <span class="sub-item">Post List</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a [routerLink]="['/admin/post/add']">
+                            <span class="sub-item">Add Post</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+
+                 
+                 
+                </ul>
+              </div>
+            </li>
+     
+  
+          </ul>
+
+          <!-- User Profile Section at Bottom -->
+          <div class="sidebar-footer" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2);">
+            <div class="user-box text-center">
+              <div class="avatar-lg mb-3" style="margin: 0 auto; width: 60px; height: 60px;">
+                <img src="/assets/img/profile.jpg" alt="image profile" class="avatar-img rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" />
+              </div>
+              <div class="u-text">
+                <h5 class="mb-1" style="color: #fff; font-weight: 600;">Admin</h5>
+                <p class="mb-2" style="color: rgba(255,255,255,0.7); font-size: 13px;">admin&#64;gmail.com</p>
+                <a href="#" class="btn btn-sm btn-light" style="background: rgba(255,255,255,0.2); color: #fff; border: none; padding: 5px 15px; border-radius: 3px;">
+                  <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Sidebar -->
+  
+    <div class="main-panel">
+      <div class="container" style="padding-top: 20px;">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  
+  
+  </div>

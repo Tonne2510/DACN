@@ -1,0 +1,45 @@
+<div class="page-inner">
+    <div class="page-header">
+      <h4 class="page-title">Edit Product Option</h4>
+    </div>
+  
+    <form [formGroup]="editOptionForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="optionName">Option Name</label>
+        <input
+          type="text"
+          id="optionName"
+          formControlName="optionName"
+          class="form-control"
+          placeholder="Enter option name"
+          [ngClass]="{ 'is-invalid': editOptionForm.get('optionName')?.invalid && editOptionForm.get('optionName')?.touched }"
+        />
+        <div *ngIf="editOptionForm.get('optionName')?.invalid && editOptionForm.get('optionName')?.touched" class="invalid-feedback">
+          Option name is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="attributeId">Select Attribute</label>
+        <select
+          formControlName="attributeId"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': editOptionForm.get('attributeId')?.invalid && editOptionForm.get('attributeId')?.touched }"
+        >
+          <option value="" disabled selected>Select an attribute</option>
+          <option *ngFor="let attribute of attributes" [value]="attribute.id">
+            {{ attribute.attributeName }}
+          </option>
+        </select>
+        <div *ngIf="editOptionForm.get('attributeId')?.invalid && editOptionForm.get('attributeId')?.touched" class="invalid-feedback">
+          Attribute selection is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" [disabled]="editOptionForm.invalid">Submit</button>
+        <a [routerLink]="['/admin/attribute-option']" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+  

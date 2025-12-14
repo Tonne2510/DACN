@@ -1,0 +1,54 @@
+<div *ngIf="orderDetail" class="container mt-5">
+    <h2 class="text-center mb-4">Order Details</h2>
+
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Order ID: {{ orderDetail.orderId }}</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>User Name:</strong> {{ orderDetail.userName }}</p>
+                    <p><strong>Email:</strong> {{ orderDetail.email }}</p>
+                    <p><strong>Phone:</strong> {{ orderDetail.phone }}</p>
+                    <p><strong>Gender:</strong> {{ orderDetail.gender }}</p>
+                    <p><strong>Order Date:</strong> {{ orderDetail.orderDate | date }}</p>
+                    <p><strong>Status:</strong> {{ orderDetail.status }}</p>
+                    <p><strong>Shipping Address:</strong> {{ orderDetail.shippingAddress }}</p>
+                </div>
+                <div class="col-md-6 text-center">
+                    <div *ngIf="orderDetail.avatar" class="mb-3">
+                        <img [src]="orderDetail.avatar" alt="User Avatar" class="img-thumbnail rounded-circle" width="150" height="150">
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="mt-4">Order Items:</h4>
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of orderDetail.orderItems">
+                        <td>{{ item.productName }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.price | currency }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="text-success mt-4">Total Price: {{ orderDetail.totalPrice | currency }}</h3>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!orderDetail" class="text-center mt-5">
+    <p>Loading order details...</p>
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>

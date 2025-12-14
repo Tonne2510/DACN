@@ -1,0 +1,36 @@
+<div class="card">
+    <div class="card-header">
+      <h4>Add Post Category</h4>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="addPostCategoryForm" (ngSubmit)="onSubmit()">
+        <div class="form-group mb-3">
+          <label for="postCategoryName">Post Category Name</label>
+          <input
+            type="text"
+            id="postCategoryName"
+            formControlName="postCategoryName"
+            class="form-control"
+            placeholder="Enter post category name"
+          />
+          <div *ngIf="addPostCategoryForm.get('postCategoryName')?.invalid && addPostCategoryForm.get('postCategoryName')?.touched" class="text-danger">
+            Post category name is required.
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="status">Status</label>
+          <select id="status" formControlName="active" class="form-select">
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="isSubmitting || addPostCategoryForm.invalid">
+          {{ isSubmitting ? 'Submitting...' : 'Submit' }}
+        </button>
+
+      </form>
+    </div>
+  </div>
+

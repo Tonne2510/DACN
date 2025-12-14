@@ -1,0 +1,79 @@
+<!-- <router-outlet></router-outlet> -->
+
+<div class="page-inner">
+    <div class="page-header">
+      <label for="">Start Date</label>
+      <input type="date" style="width: 200px;" [(ngModel)]="startDate">
+      <label for="">End Date</label>
+      <input type="date"  style="width: 200px;" [(ngModel)]="endDate">
+      <button (click)="onSearch()" class="btn btn-primary mb-3">Search</button>
+    </div>
+  
+    <div class="row justify-content-between">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex align-items-center">
+              <h4 class="card-title">List Request Comments</h4>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="display table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Comment content</th>
+                    <th>Created at</th>
+                    <th>Post Name</th>
+                    <th >Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let comment of comments">
+                    <td>
+                    {{comment?.comment?.content}}
+                      
+                    </td> 
+                    <td>{{ comment?.comment?.createdAt | date: 'dd-MM-yyy HH:mm:ss' }}</td>
+  
+                    <td>{{ comment?.comment?.post?.title}}</td>
+                    <td>
+                        <div class="form-button-action">
+                          <a [routerLink]="['/admin/request-approve/detail', comment?.commentId]" class="btn btn-link btn-primary btn-lg">
+                            <i class="fa fa-eye"></i>
+                          </a>
+                          <button type="button" (click)="approveRequestComment(comment?.commentId)" class="btn btn-link btn-info">
+                            <i class="fa fa-check">Approve</i>
+                          </button>
+                          <button type="button" (click)="rejectRequestComment(comment?.commentId)" class="btn btn-link btn-danger">
+                              <i class="fa fa-ban">Reject</i>
+                            </button>
+                        </div>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+  
+        <nav *ngIf="totalRecords > pageSize">
+          <ul class="pagination">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" (click)="onPageChange(currentPage - 1)">Previous</a>
+            </li>
+  
+            <li class="page-item" *ngFor="let page of [].constructor(Math.ceil(totalRecords / pageSize)); let i = index"
+                [class.active]="currentPage === i + 1">
+              <a class="page-link" (click)="onPageChange(i + 1)">{{ i + 1 }}</a>
+            </li>
+  
+            <li class="page-item" [class.disabled]="currentPage === Math.ceil(totalRecords / pageSize)">
+              <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  

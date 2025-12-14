@@ -1,0 +1,90 @@
+<div class="container mt-5">
+    <h2 class="text-primary">Edit Product</h2>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="productName">Product Name</label>
+        <input
+          formControlName="ProductName"
+          type="text"
+          class="form-control"
+          id="productName"
+          placeholder="Enter product name"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input
+          formControlName="Price"
+          type="number"
+          class="form-control"
+          id="price"
+          placeholder="Enter price"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="salePrice">Sale Price</label>
+        <input
+          formControlName="SalePrice"
+          type="number"
+          class="form-control"
+          id="salePrice"
+          placeholder="Enter sale price"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select formControlName="CategoryId" class="form-control">
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.categoryName }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="Description"></textarea>
+      </div>
+      <div class="row justify-content-between">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" (change)="onImageSelect($event)" class="form-control" id="image" />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div *ngIf="imagePreview || product?.image">
+            <img
+              [src]="imagePreview || 'http://localhost:5069/images/' + product.image"
+              alt="Selected Image"
+              class="img-thumbnail"
+              style="width: 200px;"
+            />
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="album">Album</label>
+        <input type="file" (change)="onAlbumSelect($event)" multiple class="form-control" id="album" />
+      </div>
+      
+      <div *ngIf="albumPreviews.length > 0" class="album-previews mt-3 d-flex flex-wrap">
+        <div *ngFor="let preview of albumPreviews" class="album-item">
+          <img [src]="preview" alt="Album Image" class="img-thumbnail" style="width: 100px !important; margin-right: 10px;" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="active">Active</label>
+        <select formControlName="Active" class="form-control">
+          <option value="1">Active</option>
+          <option value="0">Inactive</option>
+        </select>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  

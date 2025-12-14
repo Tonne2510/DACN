@@ -1,0 +1,40 @@
+<h2 class="text-success">Edit Post Category</h2>
+<form [formGroup]="editPostCategoryForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light">
+  <div class="mb-3">
+    <label for="postCategoryName" class="form-label">Post Category Name</label>
+    <input
+      type="text"
+      formControlName="postCategoryName"
+      class="form-control"
+      id="postCategoryName"
+      placeholder="Enter post category name"
+      [ngClass]="{'is-invalid': editPostCategoryForm.get('postCategoryName')?.invalid && editPostCategoryForm.get('postCategoryName')?.touched}"
+    />
+    <div *ngIf="editPostCategoryForm.get('postCategoryName')?.invalid && editPostCategoryForm.get('postCategoryName')?.touched" class="invalid-feedback">
+      Post Category Name is required.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="active" class="form-label">Status</label>
+    <select
+      class="form-select"
+      formControlName="active"
+      id="active"
+      aria-label="Post Category status"
+    >
+      <option value="1">Active</option>
+      <option value="0">Inactive</option>
+    </select>
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <a type="submit" [routerLink]="['/admin/post-category']" routerLinkActive="router-link-active" class="btn btn-success">
+      Back
+    </a>
+
+    <button type="submit" class="btn btn-primary" [disabled]="editPostCategoryForm.invalid">
+      Submit
+    </button>
+  </div>
+</form>

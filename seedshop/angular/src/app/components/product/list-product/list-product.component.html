@@ -1,0 +1,100 @@
+<div class="page-inner">
+    <div class="page-header">
+      <div class="mb-3 ml-5">
+        <input
+          type="text"
+          [(ngModel)]="searchKeyword"
+          placeholder="Search products"
+          class="form-control"
+        />
+      </div>
+  
+      <div class="mb-3 ml-5">
+        <select [(ngModel)]="statusFilter" class="form-select">
+          <option value="">All statuses</option>
+          <option value="1">Active</option>
+          <option value="0">Inactive</option>
+        </select>
+      </div>
+  
+      <button (click)="onSearch()" class="btn btn-primary mb-3">Search</button>
+    </div>
+  
+    <div class="row justify-content-between">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex align-items-center">
+              <h4 class="card-title">List Products</h4>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="display table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th style="width: 10%">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let product of products">
+                    <td>
+                      <div>
+                        <style>
+                          .product-img {
+                            width: 100px !important;
+                            height: 100px !important;
+                            object-fit: cover !important;
+                          }
+                        </style>
+                        
+                        <img [src]="product.imageUrl || 'assets/default-image.jpg'" 
+                             alt="{{ product.productName }}" 
+                             class="img-thumbnail product-img" />
+                      </div>
+                      
+                    </td> 
+                    <td>{{ product.productName }}</td>
+                    <td>{{ product.price | currency }}</td>
+                    <td>{{ product.active ? 'Active' : 'Inactive' }}</td>
+                    <td>
+                      <div class="form-button-action">
+                        <a [routerLink]="['/admin/product/edit', product.id]" class="btn btn-link btn-primary btn-lg">
+                          <i class="fa fa-edit"></i>
+                        </a>
+                        <button type="button" (click)="deleteProduct(product.id)" class="btn btn-link btn-danger">
+                          <i class="fa fa-times"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+  
+        <nav *ngIf="totalRecords > pageSize">
+          <ul class="pagination">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" (click)="onPageChange(currentPage - 1)">Previous</a>
+            </li>
+  
+            <li class="page-item" *ngFor="let page of [].constructor(Math.ceil(totalRecords / pageSize)); let i = index"
+                [class.active]="currentPage === i + 1">
+              <a class="page-link" (click)="onPageChange(i + 1)">{{ i + 1 }}</a>
+            </li>
+  
+            <li class="page-item" [class.disabled]="currentPage === Math.ceil(totalRecords / pageSize)">
+              <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  

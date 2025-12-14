@@ -1,0 +1,89 @@
+<div class="products-page">
+    <app-client-header></app-client-header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>Sản Phẩm</h1>
+            <p>Khám phá bộ sưu tập hạt giống chất lượng cao của chúng tôi</p>
+        </div>
+    </div>
+
+    <div class="products-content">
+        <div class="container">
+            <div class="products-layout">
+                <!-- Sidebar Filters -->
+                <aside class="filters-sidebar">
+                    <div class="filter-section">
+                        <h3>Danh mục</h3>
+                        <div class="filter-options">
+                            <label *ngFor="let category of categories">
+                                <input type="checkbox" [(ngModel)]="category.selected" (change)="applyFilters()">
+                                <span>{{ category.categoryName }}</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Khoảng giá</h3>
+                        <div class="price-inputs">
+                            <input type="number" placeholder="Từ" [(ngModel)]="priceFrom" (change)="applyFilters()">
+                            <span>-</span>
+                            <input type="number" placeholder="Đến" [(ngModel)]="priceTo" (change)="applyFilters()">
+                        </div>
+                    </div>
+
+                    <button class="btn-reset" (click)="resetFilters()">
+                        <i class="fas fa-redo"></i> Đặt lại bộ lọc
+                    </button>
+                </aside>
+
+                <!-- Products Grid -->
+                <div class="products-main">
+                    <div class="products-toolbar">
+                        <div class="results-count">
+                            Hiển thị {{ products.length }} / {{ totalRecords }} sản phẩm
+                        </div>
+                        <div class="sort-options">
+                            <select [(ngModel)]="sortBy" (change)="applyFilters()">
+                                <option value="createdAt">Mới nhất</option>
+                                <option value="price-asc">Giá thấp đến cao</option>
+                                <option value="price-desc">Giá cao đến thấp</option>
+                                <option value="name">Tên A-Z</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="products-grid" *ngIf="!loading && products.length > 0">
+                        <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
+                    </div>
+
+                    <div class="loading-state" *ngIf="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Đang tải sản phẩm...</p>
+                    </div>
+
+                    <div class="empty-state" *ngIf="!loading && products.length === 0">
+                        <i class="fas fa-box-open"></i>
+                        <p>Không tìm thấy sản phẩm nào</p>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" *ngIf="totalPages > 1">
+                        <button [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage"
+                            (click)="goToPage(page)">
+                            {{ page }}
+                        </button>
+                        <button [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-client-footer></app-client-footer>
+</div>

@@ -1,0 +1,23 @@
+<div class="toast-container">
+  <div *ngFor="let toast of toasts; let i = index; trackBy: trackByToastId" 
+       class="toast" 
+       [class.toast-success]="toast.type === 'success'"
+       [class.toast-error]="toast.type === 'error'"
+       [class.toast-info]="toast.type === 'info'"
+       [class.toast-warning]="toast.type === 'warning'"
+       [style.z-index]="1000 - i"
+       [style.bottom.px]="i * 10">
+    <div class="toast-icon">
+      <i class="fas fa-check-circle" *ngIf="toast.type === 'success'"></i>
+      <i class="fas fa-times-circle" *ngIf="toast.type === 'error'"></i>
+      <i class="fas fa-info-circle" *ngIf="toast.type === 'info'"></i>
+      <i class="fas fa-exclamation-circle" *ngIf="toast.type === 'warning'"></i>
+    </div>
+    <div class="toast-content">
+      <p>{{ toast.message }}</p>
+    </div>
+    <button class="toast-close" (click)="removeToast(toast.id)">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</div>
